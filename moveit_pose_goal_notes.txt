@@ -1,0 +1,201 @@
+from moveit_commander import MoveGroupCommander
+mvc = MoveGroupCommander("both_arms")
+mvc.set_pose_target([0.4, -0.2, 1.1, 0.0, 0.0, 0.0, 1.0], end_effector_link="arm_right_tool_link")
+mvc.plan()
+
+header: 
+  seq: 8
+  stamp: 
+    secs: 1386586766
+    nsecs: 790699140
+  frame_id: ''
+goal_id: 
+  stamp: 
+    secs: 1386586766
+    nsecs: 790699803
+  id: /moveit_python_wrappers_1386583416602016504-9-1386586766.790699803
+goal: 
+  request: 
+    workspace_parameters: 
+      header: 
+        seq: 0
+        stamp: 
+          secs: 0
+          nsecs: 0
+        frame_id: ''
+      min_corner: 
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      max_corner: 
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    start_state: 
+      joint_state: 
+        header: 
+          seq: 0
+          stamp: 
+            secs: 0
+            nsecs: 0
+          frame_id: ''
+        name: []
+        position: []
+        velocity: []
+        effort: []
+      multi_dof_joint_state: 
+        header: 
+          seq: 0
+          stamp: 
+            secs: 0
+            nsecs: 0
+          frame_id: ''
+        joint_names: []
+        transforms: []
+        twist: []
+        wrench: []
+      attached_collision_objects: []
+      is_diff: False
+    goal_constraints: 
+      - 
+        name: ''
+        joint_constraints: []
+        position_constraints: 
+          - 
+            header: 
+              seq: 0
+              stamp: 
+                secs: 0
+                nsecs: 0
+              frame_id: /odom_combined
+            link_name: arm_right_tool_link
+            target_point_offset: 
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            constraint_region: 
+              primitives: 
+                - 
+                  type: 2
+                  dimensions: [0.0001]
+              primitive_poses: 
+                - 
+                  position: 
+                    x: 0.4
+                    y: -0.2
+                    z: 1.1
+                  orientation: 
+                    x: 0.0
+                    y: 0.0
+                    z: 0.0
+                    w: 1.0
+              meshes: []
+              mesh_poses: []
+            weight: 1.0
+        orientation_constraints: 
+          - 
+            header: 
+              seq: 0
+              stamp: 
+                secs: 0
+                nsecs: 0
+              frame_id: /odom_combined
+            orientation: 
+              x: 0.0
+              y: 0.0
+              z: 0.0
+              w: 1.0
+            link_name: arm_right_tool_link
+            absolute_x_axis_tolerance: 0.001
+            absolute_y_axis_tolerance: 0.001
+            absolute_z_axis_tolerance: 0.001
+            weight: 1.0
+        visibility_constraints: []
+    path_constraints: 
+      name: ''
+      joint_constraints: []
+      position_constraints: []
+      orientation_constraints: []
+      visibility_constraints: []
+    trajectory_constraints: 
+      constraints: []
+    planner_id: ''
+    group_name: both_arms
+    num_planning_attempts: 1
+    allowed_planning_time: 5.0
+  planning_options: 
+    planning_scene_diff: 
+      name: ''
+      robot_state: 
+        joint_state: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          name: []
+          position: []
+          velocity: []
+          effort: []
+        multi_dof_joint_state: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          joint_names: []
+          transforms: []
+          twist: []
+          wrench: []
+        attached_collision_objects: []
+        is_diff: True
+      robot_model_name: ''
+      fixed_frame_transforms: []
+      allowed_collision_matrix: 
+        entry_names: []
+        entry_values: []
+        default_entry_names: []
+        default_entry_values: []
+      link_padding: []
+      link_scale: []
+      object_colors: []
+      world: 
+        collision_objects: []
+        octomap: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          origin: 
+            position: 
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            orientation: 
+              x: 0.0
+              y: 0.0
+              z: 0.0
+              w: 0.0
+          octomap: 
+            header: 
+              seq: 0
+              stamp: 
+                secs: 0
+                nsecs: 0
+              frame_id: ''
+            binary: False
+            id: ''
+            resolution: 0.0
+            data: []
+      is_diff: True
+    plan_only: True
+    look_around: False
+    look_around_attempts: 0
+    max_safe_execution_cost: 0.0
+    replan: False
+    replan_attempts: 0
+    replan_delay: 0.0

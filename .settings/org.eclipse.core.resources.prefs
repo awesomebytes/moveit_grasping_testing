@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//scripts/cartesian_path.py=utf-8
+encoding//scripts/hydra_grab_points.py=utf-8
+encoding//scripts/many_poses_one_goal.py=utf-8
+encoding//scripts/oculus_tf_to_pose.py=utf-8
+encoding//scripts/pick_and_place.py=utf-8
+encoding//scripts/pose_goal_move_group.py=utf-8
+encoding//scripts/pose_goal_moveit.py=utf-8
+encoding//scripts/set_pose_targets.py=utf-8

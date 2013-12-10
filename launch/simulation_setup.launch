@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find reem_gazebo)/launch/reem_empty_world.launch" />
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find moveit_grasping_testing)/config/rviz_teleop.vcg">
+    </node> -->
+</launch>

@@ -1,0 +1,203 @@
+header: 
+  seq: 0
+  stamp: 
+    secs: 1386241297
+    nsecs: 733888564
+  frame_id: ''
+goal_id: 
+  stamp: 
+    secs: 1386241297
+    nsecs: 733889582
+  id: /moveit_python_wrappers_1386241288324346056-1-1386241297.733889582
+goal: 
+  target_name: part
+  group_name: right_arm_torso
+  end_effector: ''
+  possible_grasps: 
+    - 
+      id: test
+      pre_grasp_posture: 
+        header: 
+          seq: 0
+          stamp: 
+            secs: 1386241296
+            nsecs: 904017925
+          frame_id: base_link
+        joint_names: ['hand_right_thumb_joint', 'hand_right_index_joint', 'hand_right_middle_joint']
+        points: 
+          - 
+            positions: [2.0, 0.0, 0.0]
+            velocities: []
+            accelerations: []
+            effort: []
+            time_from_start: 
+              secs: 0
+              nsecs: 0
+      grasp_posture: 
+        header: 
+          seq: 0
+          stamp: 
+            secs: 1386241296
+            nsecs: 904059886
+          frame_id: base_link
+        joint_names: ['hand_right_thumb_joint', 'hand_right_index_joint', 'hand_right_middle_joint']
+        points: 
+          - 
+            positions: [2.0, 2.0, 2.0]
+            velocities: []
+            accelerations: []
+            effort: []
+            time_from_start: 
+              secs: 0
+              nsecs: 0
+      grasp_pose: 
+        header: 
+          seq: 0
+          stamp: 
+            secs: 1386241296
+            nsecs: 903851985
+          frame_id: base_link
+        pose: 
+          position: 
+            x: 0.61654
+            y: 0.00954
+            z: 0.98733
+          orientation: 
+            x: 0.028598
+            y: 0.70614
+            z: -0.016945
+            w: 0.70729
+      grasp_quality: 0.0
+      pre_grasp_approach: 
+        direction: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 1386241296
+              nsecs: 903996944
+            frame_id: base_link
+          vector: 
+            x: 1.0
+            y: 0.0
+            z: 0.0
+        desired_distance: 0.0500000007451
+        min_distance: 0.00999999977648
+      post_grasp_retreat: 
+        direction: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 1386241296
+              nsecs: 904087066
+            frame_id: base_link
+          vector: 
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        desired_distance: 0.10000000149
+        min_distance: 0.00999999977648
+      post_place_retreat: 
+        direction: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          vector: 
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        desired_distance: 0.0
+        min_distance: 0.0
+      max_contact_force: 0.0
+      allowed_touch_objects: ['table']
+  support_surface_name: ''
+  allow_gripper_support_collision: False
+  attached_object_touch_links: []
+  minimize_object_distance: False
+  path_constraints: 
+    name: ''
+    joint_constraints: []
+    position_constraints: []
+    orientation_constraints: []
+    visibility_constraints: []
+  planner_id: ''
+  allowed_touch_objects: []
+  allowed_planning_time: 5.0
+  planning_options: 
+    planning_scene_diff: 
+      name: ''
+      robot_state: 
+        joint_state: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          name: []
+          position: []
+          velocity: []
+          effort: []
+        multi_dof_joint_state: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          joint_names: []
+          transforms: []
+          twist: []
+          wrench: []
+        attached_collision_objects: []
+        is_diff: True
+      robot_model_name: ''
+      fixed_frame_transforms: []
+      allowed_collision_matrix: 
+        entry_names: []
+        entry_values: []
+        default_entry_names: []
+        default_entry_values: []
+      link_padding: []
+      link_scale: []
+      object_colors: []
+      world: 
+        collision_objects: []
+        octomap: 
+          header: 
+            seq: 0
+            stamp: 
+              secs: 0
+              nsecs: 0
+            frame_id: ''
+          origin: 
+            position: 
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            orientation: 
+              x: 0.0
+              y: 0.0
+              z: 0.0
+              w: 0.0
+          octomap: 
+            header: 
+              seq: 0
+              stamp: 
+                secs: 0
+                nsecs: 0
+              frame_id: ''
+            binary: False
+            id: ''
+            resolution: 0.0
+            data: []
+      is_diff: True
+    plan_only: False
+    look_around: False
+    look_around_attempts: 0
+    max_safe_execution_cost: 0.0
+    replan: False
+    replan_attempts: 0
+    replan_delay: 2.0

@@ -1,0 +1,10 @@
+<launch>
+    <!-- <node pkg="moveit_grasping_testing" type="hydra_grab_points.py" name="hydra_grab_points">
+    </node> -->
+    <include file="$(find razer_hydra)/launch/hydra.launch" >
+    	<arg name="publish_tf" value="true" />
+    </include>
+    <node pkg="tf" type="static_transform_publisher" name="static_tf" args="0.0 -1.0 1.0 0 0 0 /base_link /hydra_base 100">
+    </node>
+
+</launch>
