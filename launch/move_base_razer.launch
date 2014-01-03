@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="moveit_grasping_testing" type="move_base.py" name="move_base_joystick_razer">
+    </node>   
+</launch>

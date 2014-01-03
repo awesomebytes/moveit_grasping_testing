@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="moveit_grasping_testing" type="oculus_tf_to_pose.py" name="oculus_tf_to_pose">
+    </node>
+    <node pkg="moveit_grasping_testing" type="head_control_oculus.py" name="head_control_oculus">
+    </node>   
+
+    <node pkg="tf" type="static_transform_publisher" name="oculus_torso2_tf_broadcaster" args="0.0 0.0 0.0 0.0 0.0 1.5707 torso_2_link oculus_torso_2_ref_link 100" />
+
+</launch>

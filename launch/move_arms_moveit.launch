@@ -1,0 +1,14 @@
+ <launch>
+
+ <include file="$(find reem_moveit_config)/launch/move_group.launch">
+  <arg name="publish_monitored_planning_scene" value="true" />
+ </include>
+
+    <node pkg="moveit_grasping_testing" type="right_arm_mover.py" name="right_arm_razer">
+    </node>   
+
+    <node pkg="moveit_grasping_testing" type="left_arm_mover.py" name="left_arm_razer">
+    </node>   
+
+    <include file="$(find moveit_grasping_testing)/launch/hydra_and_tf.launch" />
+</launch>

@@ -96,4 +96,4 @@ grasp.max_contact_force = 0
 
 
 
-robot.right_arm_torso.pick("part", grasp)
+robot.right_arm_torso.pick("part")#, grasp)

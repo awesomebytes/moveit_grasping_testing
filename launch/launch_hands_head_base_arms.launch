@@ -1,0 +1,12 @@
+ <launch>
+
+     <include file="$(find moveit_grasping_testing)/launch/hand_open_close.launch" />
+
+     <include file="$(find moveit_grasping_testing)/launch/oculus_head_tracker.launch" />
+
+     <include file="$(find moveit_grasping_testing)/launch/move_base_razer.launch" />
+
+     <include file="$(find moveit_grasping_testing)/launch/move_arms_moveit.launch" />
+
+     
+ </launch>

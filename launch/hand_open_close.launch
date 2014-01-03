@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="moveit_grasping_testing" type="hand_closer.py" name="hand_open_closer">
+    </node>   
+</launch>
