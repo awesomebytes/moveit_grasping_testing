@@ -6,12 +6,14 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /RobotModel1
         - /TF1
+        - /TF1/Frames1
         - /OculusDisplay1
-        - /OculusDisplay1/Status1
         - /OculusDisplay1/Offset1
-      Splitter Ratio: 0.5
-    Tree Height: 385
+        - /oculuspose1
+      Splitter Ratio: 0.61745
+    Tree Height: 390
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -52,7 +54,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Alpha: 1
+    - Alpha: 0.4
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
@@ -156,6 +158,41 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        base_bumper_01_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_bumper_02_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_bumper_03_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_bumper_04_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_bumper_05_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_bumper_06_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_bumper_07_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         base_cargo_link:
           Alpha: 1
           Show Axes: false
@@ -167,6 +204,11 @@ Visualization Manager:
           Show Trail: false
           Value: true
         base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_inclinometer_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -397,11 +439,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         stereo_gazebo_l_stereo_camera_frame:
           Alpha: 1
           Show Axes: false
@@ -471,343 +508,357 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 15
       Frames:
-        All Enabled: true
+        All Enabled: false
         arm_left_1_link:
-          Value: true
+          Value: false
         arm_left_2_link:
-          Value: true
+          Value: false
         arm_left_3_link:
-          Value: true
+          Value: false
         arm_left_4_link:
-          Value: true
+          Value: false
         arm_left_5_link:
-          Value: true
+          Value: false
         arm_left_6_link:
-          Value: true
+          Value: false
         arm_left_7_link:
-          Value: true
+          Value: false
         arm_left_tool_link:
           Value: true
         arm_right_1_link:
-          Value: true
+          Value: false
         arm_right_2_link:
-          Value: true
+          Value: false
         arm_right_3_link:
-          Value: true
+          Value: false
         arm_right_4_link:
-          Value: true
+          Value: false
         arm_right_5_link:
-          Value: true
+          Value: false
         arm_right_6_link:
-          Value: true
+          Value: false
         arm_right_7_link:
-          Value: true
+          Value: false
         arm_right_tool_link:
           Value: true
         back_camera_gazebo_back_camera_link:
-          Value: true
+          Value: false
         back_camera_link:
-          Value: true
+          Value: false
         back_camera_optical_frame:
-          Value: true
+          Value: false
+        base_bumper_01_link:
+          Value: false
+        base_bumper_02_link:
+          Value: false
+        base_bumper_03_link:
+          Value: false
+        base_bumper_04_link:
+          Value: false
+        base_bumper_05_link:
+          Value: false
+        base_bumper_06_link:
+          Value: false
+        base_bumper_07_link:
+          Value: false
         base_cargo_link:
-          Value: true
+          Value: false
         base_center:
-          Value: true
+          Value: false
         base_footprint:
-          Value: true
+          Value: false
+        base_inclinometer_link:
+          Value: false
         base_ir_01_link:
-          Value: true
+          Value: false
         base_ir_02_link:
-          Value: true
+          Value: false
         base_ir_03_link:
-          Value: true
+          Value: false
         base_laser_link:
-          Value: true
+          Value: false
         base_link:
           Value: true
         base_sonar_01_link:
-          Value: true
+          Value: false
         base_sonar_02_link:
-          Value: true
+          Value: false
         base_sonar_03_link:
-          Value: true
+          Value: false
         base_sonar_04_link:
-          Value: true
+          Value: false
         base_sonar_05_link:
-          Value: true
+          Value: false
         base_sonar_06_link:
-          Value: true
+          Value: false
         base_sonar_07_link:
-          Value: true
+          Value: false
         base_sonar_08_link:
-          Value: true
+          Value: false
         base_sonar_09_link:
-          Value: true
+          Value: false
         base_sonar_10_link:
-          Value: true
+          Value: false
         base_sonar_11_link:
-          Value: true
+          Value: false
         base_sonar_12_link:
-          Value: true
+          Value: false
         base_torso_laser_link:
-          Value: true
+          Value: false
         caster_left_1_link:
-          Value: true
+          Value: false
         caster_left_2_link:
-          Value: true
+          Value: false
         caster_right_1_link:
-          Value: true
+          Value: false
         caster_right_2_link:
-          Value: true
+          Value: false
         hand_left_grasping_frame:
-          Value: true
+          Value: false
         hand_left_index_1_link:
-          Value: true
+          Value: false
         hand_left_index_2_link:
-          Value: true
+          Value: false
         hand_left_index_3_link:
-          Value: true
+          Value: false
         hand_left_index_link:
-          Value: true
+          Value: false
         hand_left_middle_1_link:
-          Value: true
+          Value: false
         hand_left_middle_2_link:
-          Value: true
+          Value: false
         hand_left_middle_3_link:
-          Value: true
+          Value: false
         hand_left_middle_link:
-          Value: true
+          Value: false
         hand_left_palm_link:
-          Value: true
+          Value: false
         hand_left_thumb_link:
-          Value: true
+          Value: false
         hand_right_grasping_frame:
-          Value: true
+          Value: false
         hand_right_index_1_link:
-          Value: true
+          Value: false
         hand_right_index_2_link:
-          Value: true
+          Value: false
         hand_right_index_3_link:
-          Value: true
+          Value: false
         hand_right_index_link:
-          Value: true
+          Value: false
         hand_right_middle_1_link:
-          Value: true
+          Value: false
         hand_right_middle_2_link:
-          Value: true
+          Value: false
         hand_right_middle_3_link:
-          Value: true
+          Value: false
         hand_right_middle_link:
-          Value: true
+          Value: false
         hand_right_palm_link:
-          Value: true
+          Value: false
         hand_right_thumb_link:
-          Value: true
+          Value: false
         head_1_link:
-          Value: true
+          Value: false
         head_2_link:
-          Value: true
+          Value: false
         head_mount_xtion_frame:
-          Value: true
+          Value: false
         head_mount_xtion_optical_frame:
-          Value: true
+          Value: false
         head_sonar_16_link:
-          Value: true
+          Value: false
         hydra_base:
-          Value: true
-        hydra_left_grab:
-          Value: true
-        hydra_left_pivot:
-          Value: true
-        hydra_right_grab:
-          Value: true
-        hydra_right_pivot:
-          Value: true
-        imu_link:
           Value: true
         oculus:
           Value: true
-        odom:
+        oculus_torso_2_ref_link:
           Value: true
         stereo_gazebo_l_stereo_camera_frame:
-          Value: true
+          Value: false
         stereo_gazebo_l_stereo_camera_optical_frame:
-          Value: true
+          Value: false
         stereo_gazebo_r_stereo_camera_frame:
-          Value: true
+          Value: false
         stereo_gazebo_r_stereo_camera_optical_frame:
-          Value: true
+          Value: false
         stereo_link:
-          Value: true
+          Value: false
         stereo_optical_frame:
-          Value: true
+          Value: false
         torso_1_link:
-          Value: true
+          Value: false
         torso_2_link:
-          Value: true
+          Value: false
         torso_sonar_13_link:
-          Value: true
+          Value: false
         torso_sonar_14_link:
-          Value: true
+          Value: false
         torso_sonar_15_link:
-          Value: true
+          Value: false
         wheel_left_link:
-          Value: true
+          Value: false
         wheel_right_link:
-          Value: true
+          Value: false
       Marker Scale: 0.5
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_footprint:
-            base_link:
-              base_cargo_link:
+        base_footprint:
+          base_link:
+            base_bumper_01_link:
+              {}
+            base_bumper_02_link:
+              {}
+            base_bumper_03_link:
+              {}
+            base_bumper_04_link:
+              {}
+            base_bumper_05_link:
+              {}
+            base_bumper_06_link:
+              {}
+            base_bumper_07_link:
+              {}
+            base_cargo_link:
+              {}
+            base_center:
+              {}
+            base_inclinometer_link:
+              {}
+            base_ir_01_link:
+              {}
+            base_ir_02_link:
+              {}
+            base_ir_03_link:
+              {}
+            base_laser_link:
+              {}
+            base_sonar_01_link:
+              {}
+            base_sonar_02_link:
+              {}
+            base_sonar_03_link:
+              {}
+            base_sonar_04_link:
+              {}
+            base_sonar_05_link:
+              {}
+            base_sonar_06_link:
+              {}
+            base_sonar_07_link:
+              {}
+            base_sonar_08_link:
+              {}
+            base_sonar_09_link:
+              {}
+            base_sonar_10_link:
+              {}
+            base_sonar_11_link:
+              {}
+            base_sonar_12_link:
+              {}
+            base_torso_laser_link:
+              {}
+            caster_left_1_link:
+              caster_left_2_link:
                 {}
-              base_center:
+            caster_right_1_link:
+              caster_right_2_link:
                 {}
-              base_ir_01_link:
-                {}
-              base_ir_02_link:
-                {}
-              base_ir_03_link:
-                {}
-              base_laser_link:
-                {}
-              base_sonar_01_link:
-                {}
-              base_sonar_02_link:
-                {}
-              base_sonar_03_link:
-                {}
-              base_sonar_04_link:
-                {}
-              base_sonar_05_link:
-                {}
-              base_sonar_06_link:
-                {}
-              base_sonar_07_link:
-                {}
-              base_sonar_08_link:
-                {}
-              base_sonar_09_link:
-                {}
-              base_sonar_10_link:
-                {}
-              base_sonar_11_link:
-                {}
-              base_sonar_12_link:
-                {}
-              base_torso_laser_link:
-                {}
-              caster_left_1_link:
-                caster_left_2_link:
-                  {}
-              caster_right_1_link:
-                caster_right_2_link:
-                  {}
-              hydra_base:
-                hydra_left_grab:
-                  {}
-                hydra_left_pivot:
-                  {}
-                hydra_right_grab:
-                  {}
-                hydra_right_pivot:
-                  {}
-              imu_link:
-                {}
-              oculus:
-                {}
-              torso_1_link:
-                torso_2_link:
-                  arm_left_1_link:
-                    arm_left_2_link:
-                      arm_left_3_link:
-                        arm_left_4_link:
-                          arm_left_5_link:
-                            arm_left_6_link:
-                              arm_left_7_link:
-                                arm_left_tool_link:
-                                  hand_left_palm_link:
-                                    hand_left_grasping_frame:
-                                      {}
-                                    hand_left_index_1_link:
-                                      hand_left_index_2_link:
-                                        hand_left_index_3_link:
-                                          {}
-                                    hand_left_index_link:
-                                      {}
-                                    hand_left_middle_1_link:
-                                      hand_left_middle_2_link:
-                                        hand_left_middle_3_link:
-                                          {}
-                                    hand_left_middle_link:
-                                      {}
-                                    hand_left_thumb_link:
-                                      {}
-                  arm_right_1_link:
-                    arm_right_2_link:
-                      arm_right_3_link:
-                        arm_right_4_link:
-                          arm_right_5_link:
-                            arm_right_6_link:
-                              arm_right_7_link:
-                                arm_right_tool_link:
-                                  hand_right_palm_link:
-                                    hand_right_grasping_frame:
-                                      {}
-                                    hand_right_index_1_link:
-                                      hand_right_index_2_link:
-                                        hand_right_index_3_link:
-                                          {}
-                                    hand_right_index_link:
-                                      {}
-                                    hand_right_middle_1_link:
-                                      hand_right_middle_2_link:
-                                        hand_right_middle_3_link:
-                                          {}
-                                    hand_right_middle_link:
-                                      {}
-                                    hand_right_thumb_link:
-                                      {}
-                  back_camera_link:
-                    back_camera_gazebo_back_camera_link:
-                      {}
-                    back_camera_optical_frame:
-                      {}
-                  head_1_link:
-                    head_2_link:
-                      head_mount_xtion_frame:
-                        head_mount_xtion_optical_frame:
-                          {}
-                      head_sonar_16_link:
+            hydra_base:
+              {}
+            oculus:
+              {}
+            torso_1_link:
+              torso_2_link:
+                arm_left_1_link:
+                  arm_left_2_link:
+                    arm_left_3_link:
+                      arm_left_4_link:
+                        arm_left_5_link:
+                          arm_left_6_link:
+                            arm_left_7_link:
+                              arm_left_tool_link:
+                                hand_left_palm_link:
+                                  hand_left_grasping_frame:
+                                    {}
+                                  hand_left_index_1_link:
+                                    hand_left_index_2_link:
+                                      hand_left_index_3_link:
+                                        {}
+                                  hand_left_index_link:
+                                    {}
+                                  hand_left_middle_1_link:
+                                    hand_left_middle_2_link:
+                                      hand_left_middle_3_link:
+                                        {}
+                                  hand_left_middle_link:
+                                    {}
+                                  hand_left_thumb_link:
+                                    {}
+                arm_right_1_link:
+                  arm_right_2_link:
+                    arm_right_3_link:
+                      arm_right_4_link:
+                        arm_right_5_link:
+                          arm_right_6_link:
+                            arm_right_7_link:
+                              arm_right_tool_link:
+                                hand_right_palm_link:
+                                  hand_right_grasping_frame:
+                                    {}
+                                  hand_right_index_1_link:
+                                    hand_right_index_2_link:
+                                      hand_right_index_3_link:
+                                        {}
+                                  hand_right_index_link:
+                                    {}
+                                  hand_right_middle_1_link:
+                                    hand_right_middle_2_link:
+                                      hand_right_middle_3_link:
+                                        {}
+                                  hand_right_middle_link:
+                                    {}
+                                  hand_right_thumb_link:
+                                    {}
+                back_camera_link:
+                  back_camera_gazebo_back_camera_link:
+                    {}
+                  back_camera_optical_frame:
+                    {}
+                head_1_link:
+                  head_2_link:
+                    head_mount_xtion_frame:
+                      head_mount_xtion_optical_frame:
                         {}
-                      stereo_link:
-                        stereo_gazebo_l_stereo_camera_frame:
-                          stereo_gazebo_l_stereo_camera_optical_frame:
-                            {}
-                          stereo_gazebo_r_stereo_camera_frame:
-                            stereo_gazebo_r_stereo_camera_optical_frame:
-                              {}
-                        stereo_optical_frame:
+                    head_sonar_16_link:
+                      {}
+                    stereo_link:
+                      stereo_gazebo_l_stereo_camera_frame:
+                        stereo_gazebo_l_stereo_camera_optical_frame:
                           {}
-                  torso_sonar_13_link:
-                    {}
-                  torso_sonar_14_link:
-                    {}
-                  torso_sonar_15_link:
-                    {}
-              wheel_left_link:
-                {}
-              wheel_right_link:
-                {}
+                        stereo_gazebo_r_stereo_camera_frame:
+                          stereo_gazebo_r_stereo_camera_optical_frame:
+                            {}
+                      stereo_optical_frame:
+                        {}
+                oculus_torso_2_ref_link:
+                  {}
+                torso_sonar_13_link:
+                  {}
+                torso_sonar_14_link:
+                  {}
+                torso_sonar_15_link:
+                  {}
+            wheel_left_link:
+              {}
+            wheel_right_link:
+              {}
       Update Interval: 0
       Value: true
-    - Alpha: 1
+    - Alpha: 0.6
       Axes Length: 1
       Axes Radius: 0.1
       Class: rviz/Pose
@@ -821,7 +872,7 @@ Visualization Manager:
       Shape: Arrow
       Topic: /teleop_right_hand_pose_reference
       Value: true
-    - Alpha: 1
+    - Alpha: 0.6
       Axes Length: 1
       Axes Radius: 0.1
       Class: rviz/Pose
@@ -836,8 +887,8 @@ Visualization Manager:
       Topic: /teleop_left_hand_pose_reference
       Value: true
     - Alpha: 1
-      Axes Length: 0.5
-      Axes Radius: 0.05
+      Axes Length: 0.2
+      Axes Radius: 0.01
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
@@ -850,8 +901,8 @@ Visualization Manager:
       Topic: /teleop_right_hand_pose
       Value: true
     - Alpha: 1
-      Axes Length: 0.5
-      Axes Radius: 0.05
+      Axes Length: 0.2
+      Axes Radius: 0.01
       Class: rviz/Pose
       Color: 255; 25; 0
       Enabled: true
@@ -864,21 +915,35 @@ Visualization Manager:
       Topic: /teleop_left_hand_pose
       Value: true
     - Class: oculus_rviz_plugins/OculusDisplay
-      Enabled: false
+      Enabled: true
       Fixed Horizon: true
       Follow RViz Camera: false
       Motion prediction (ms): 30
       Name: OculusDisplay
       Near Clip Distance: 0.02
       Offset:
-        X: 0
+        X: 0.13
         Y: 0
-        Z: 0
+        Z: 0.52
       Publish tf: true
       Render to Oculus: true
-      Target Frame: <Fixed Frame>
+      Target Frame: torso_2_link
       Tf Frame: oculus
-      Value: false
+      Value: true
+    - Alpha: 1
+      Axes Length: 0.3
+      Axes Radius: 0.02
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.1
+      Name: oculuspose
+      Shaft Length: 1
+      Shaft Radius: 0.05
+      Shape: Axes
+      Topic: /oculus_pose
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -903,25 +968,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.23578
+      Distance: 1.79461
       Focal Point:
-        X: -0.147173
-        Y: -0.067589
-        Z: 0.135187
+        X: -0.141499
+        Y: -0.120153
+        Z: 1.36377
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: -0.659602
+      Pitch: 0.560398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.88312
+      Yaw: 3.3863
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 691
+  Height: 696
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000013c00000210fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000004100000210000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000210fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000004100000210000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005540000003efc0100000002fb0000000800540069006d0065010000000000000554000002f600fffffffb0000000800540069006d00650100000000000004500000000000000000000002fd0000021000000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000013c00000215fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000004100000215000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000215fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000004100000215000000b000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000006e20000003efc0100000002fb0000000800540069006d00650100000000000006e2000002f600fffffffb0000000800540069006d006501000000000000045000000000000000000000048b0000021500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -930,6 +995,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1364
-  X: -7
-  Y: 24
+  Width: 1762
+  X: 149
+  Y: 72
