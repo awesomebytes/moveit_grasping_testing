@@ -257,7 +257,7 @@ if __name__=='__main__':
     p.pose.orientation.w = 1.0
     scene.add_box("table", p, (0.5, 1.5, 0.9))
     p.pose.position.x = 0.35
-    p.pose.position.y = -0.1
+    p.pose.position.y = -0.5
     p.pose.position.z = 1.15
     #scene.add_box("part", p, (0.04, 0.04, 0.1))
     scene.add_box("part", p, (0.03, 0.03, 0.1))
