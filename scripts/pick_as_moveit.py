@@ -18,7 +18,8 @@ import copy
 import random
 from block_grasp_generator.msg import GenerateBlockGraspsAction, GenerateBlockGraspsGoal, GenerateBlockGraspsResult
 from tf import transformations
-import math
+from math import radians
+from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
 moveit_error_dict = {}
 for name in MoveItErrorCodes.__dict__.keys():
@@ -256,9 +257,15 @@ if __name__=='__main__':
     p.pose.position.z = 0.65
     p.pose.orientation.w = 1.0
     scene.add_box("table", p, (0.5, 1.5, 0.9))
-    p.pose.position.x = 0.35
-    p.pose.position.y = -0.5
+    p.pose.position.x = 0.4
+    p.pose.position.y = -0.1
     p.pose.position.z = 1.15
+    
+    angle = radians(80) # angles are expressed in radians
+    quat = quaternion_from_euler(0.0, 0.0, angle) # roll, pitch, yaw
+    p.pose.orientation = Quaternion(*quat.tolist())
+    
+    
     #scene.add_box("part", p, (0.04, 0.04, 0.1))
     scene.add_box("part", p, (0.03, 0.03, 0.1))
     rospy.loginfo("Added object to world")
