@@ -18,10 +18,16 @@ import copy
 import random
 from block_grasp_generator.msg import GenerateBlockGraspsAction, GenerateBlockGraspsGoal, GenerateBlockGraspsResult
 from tf import transformations
-from math import radians, pi
+from math import radians, pi, sqrt
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
+import tf
+import copy
+from object_recognition_msgs.msg import RecognizedObjectArray
+import object_recognition_clusters.cluster_bounding_box_finder as cluster_bounding_box_finder
 
 from reem_tabletop_grasping.msg import GraspObjectGoal, GraspObjectAction
+
+from std_srvs.srv import Empty, EmptyRequest
 
 moveit_error_dict = {}
 for name in MoveItErrorCodes.__dict__.keys():
@@ -232,6 +238,19 @@ def publish_poses_grasps(grasps):
             rospy.sleep(0.1)
 
 
+def dist_between_points(x1, y1, x2, y2):
+    print "calculate the distance "
+    
+
+global recognized_array
+
+
+def callback_recognized_array(data):
+    #print "Got a callback from recognized array"
+    global recognized_array
+    recognized_array = copy.deepcopy(data)
+
+
 if __name__=='__main__':
     rospy.init_node("pick_test_as")
     
@@ -247,11 +266,73 @@ if __name__=='__main__':
     
     rospy.sleep(1)   
 
+    rospy.loginfo("Creating tf listener")
+    tf_listener = tf.TransformListener()
+    rospy.loginfo("Creating tf broadcaster")
+    tf_broadcaster = tf.TransformBroadcaster()
+    rospy.sleep(1)
+    rospy.loginfo("Creating cluster_bounding_box_finder")
+    cbbf = cluster_bounding_box_finder.ClusterBoundingBoxFinder(tf_listener, tf_broadcaster)
+    rospy.sleep(1)
+    
+    rospy.loginfo("Asking for a depth image for the object clustering... wait for service")
+    depth_srv = rospy.ServiceProxy('/depth_throtle', Empty)
+    depth_srv.wait_for_service()
+    
+    rospy.loginfo("Subscribing to recog obj array")
+    global recognized_array
+    recognized_array = None
+    recog_subs = rospy.Subscriber("/recognized_object_array", RecognizedObjectArray, callback_recognized_array)
+    
+    rospy.loginfo("depth srv call 1")
+    depth_srv.call(EmptyRequest())
+    # call it twice cause it doesnt work with only one call, TODO: fix it
+    rospy.sleep(0.1)
+    rospy.loginfo("depth srv call 2")
+    depth_srv.call(EmptyRequest())
+    #rospy.sleep(0.5)
+    
+    
+    rospy.loginfo("Waiting for a recognized array")
+    while recognized_array == None:
+        rospy.sleep(0.1)
+    recog_subs.unregister()
+    rospy.loginfo("Got one, getting poses and bounding boxes and saving closest one")
+    current_id = 0
+    closest_pose = None
+    closest_id = 0
+    closest_bbox = None
+    closest_bbox_dims = None
+    closest_distance = 99999.9
+    offset_x_to_grasp = 0.3
+    offset_y_to_grasp = -0.2
+    for myobject in recognized_array.objects:  
+        (object_points, obj_bbox_dims, object_bounding_box, object_pose) = cbbf.find_object_frame_and_bounding_box(myobject.point_clouds[0])
+        tf_listener.waitForTransform("base_link", object_pose.header.frame_id, object_pose.header.stamp, rospy.Duration(5))
+        trans_pose = tf_listener.transformPose("base_link", object_pose)
+        object_pose = trans_pose
+        rospy.loginfo("id: " + str(current_id) + "\n pose:\n" + str(object_pose))
+        if closest_pose == None: # first loop
+            closest_pose = object_pose
+            closest_bbox = object_bounding_box
+            closest_bbox_dims = obj_bbox_dims
+            closest_distance = sqrt(abs(closest_pose.pose.position.x) + abs(closest_pose.pose.position.y + 0.2)) # offset
+        else:
+            if sqrt(abs(object_pose.pose.position.x) + abs(object_pose.pose.position.y + 0.2)) < closest_distance:
+                closest_distance = sqrt(abs(object_pose.pose.position.x) + abs(object_pose.pose.position.y + 0.2))
+                closest_pose = object_pose
+                closest_bbox = object_bounding_box
+                closest_bbox_dims = obj_bbox_dims
+                closest_id = current_id
+        current_id+=1
+    rospy.loginfo("Closest id is: " + str(closest_id) + " at " + str(closest_pose))
+    rospy.loginfo("With bbox dims: " + str(closest_bbox_dims))
+
     grasp_object_server_goal = GraspObjectGoal()
-    grasp_object_server_goal.target_id = 0 # only one cluster, lets suppose its the only one
+    grasp_object_server_goal.target_id = closest_id # only one cluster, lets suppose its the only one
     grasp_object_server_goal.execute_grasp = False # Lets check if we can do something first
     
-    rospy.loginfo("Requesting grasp (without execution) for target_id 0")
+    rospy.loginfo("Requesting grasp (without execution) for target_id " + str(closest_id))
     grasp_obj_ac.send_goal(grasp_object_server_goal)
     grasp_obj_ac.wait_for_result()
     grasp_obj_result =grasp_obj_ac.get_result()
