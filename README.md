@@ -24,7 +24,7 @@ Then I would recommend you to do another workspace (just to keep things separate
 * 3) Install this package rosinstall in a new workspace (reem_manipulation_ws for example):
 ```
 cd ~
-mkdir -p ~/reem_manipulation_ws_ws/src && cd ~/reem_manipulation_ws_ws/src
+mkdir -p ~/reem_manipulation_ws/src && cd ~/reem_manipulation_ws/src
 catkin_init_workspace
 
 wstool init .
