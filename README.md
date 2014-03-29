@@ -43,7 +43,7 @@ catkin_make
 
 * Launch simulation of REEM in a world with a table and some objects over it (world:=objects_in_table), also, launch it with the Xtion over REEM head (robot:=rgbd)
 ```
-roslaunch reem_gazebo reem_gazebo.launch world:=objects_in_table robot:=rgbd
+roslaunch reem_gazebo reem_gazebo.launch world:=objects_on_table robot:=rgbd
 ```
 * You probably want to reduce the rate of publishing of the rgbd data:
 ```
