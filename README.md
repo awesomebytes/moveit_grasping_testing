@@ -54,3 +54,8 @@ roslaunch reem_rgbd_launch simulation_reduce_rate.launch
 ```
 roslaunch reem_tabletop_grasping tabletop_grasping.launch
 ```
+
+* Run moveit for REEM
+```
+roslaunch reem_moveit_config moveit_planning_execution.launch
+```

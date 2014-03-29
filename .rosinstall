@@ -7,3 +7,4 @@
 - git: {local-name: reem_tabletop_grasping, uri: 'https://github.com/pal-robotics/reem_tabletop_grasping'}
 - git: {local-name: reem_rgbd_launch, uri: 'https://github.com/awesomebytes/reem_rgbd_launch'}
 - git: {local-name: moveit_grasping_testing, uri: 'https://github.com/awesomebytes/moveit_grasping_testing'}
+- git: {local-name: reem_snippets, uri: 'https://github.com/reem-utils/reem_snippets'}
