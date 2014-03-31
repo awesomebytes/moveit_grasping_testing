@@ -18,7 +18,7 @@ import copy
 import random
 from block_grasp_generator.msg import GenerateBlockGraspsAction, GenerateBlockGraspsGoal, GenerateBlockGraspsResult
 from tf import transformations
-from math import radians
+from math import radians, pi
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
 moveit_error_dict = {}
@@ -93,7 +93,7 @@ def add_offset_reem_hand(grasp_pose):
                                                              offset_grasp_pose.pose.orientation.y,
                                                              offset_grasp_pose.pose.orientation.z,
                                                              offset_grasp_pose.pose.orientation.w])
-    newroll = roll + math.pi # putting the hand in the inverse position
+    newroll = roll + pi # putting the hand in the inverse position
     newquat = transformations.quaternion_from_euler(newroll, pitch, yaw)
     offset_grasp_pose.pose.orientation = Quaternion(newquat[0], newquat[1], newquat[2], newquat[3])
     return offset_grasp_pose
@@ -258,7 +258,7 @@ if __name__=='__main__':
     p.pose.orientation.w = 1.0
     scene.add_box("table", p, (0.5, 1.5, 0.9))
     p.pose.position.x = 0.4
-    p.pose.position.y = -0.1
+    p.pose.position.y = -0.3
     p.pose.position.z = 1.15
     
     angle = radians(80) # angles are expressed in radians
@@ -296,7 +296,7 @@ if __name__=='__main__':
     possible_grasps = retrieveGrasps(pose_grasp.pose) # using grasp generator AS
     #possible_grasps = createRandomGrasps(pose_grasp.pose, 136)
     publish_poses_grasps(possible_grasps)
-    goal = createPickupGoal("right_arm_torso_grasping", "part", pose_grasp, possible_grasps)
+    goal = createPickupGoal("right_arm_torso", "part", pose_grasp, possible_grasps)
     rospy.loginfo("Sending goal")
     pickup_ac.send_goal(goal)
     rospy.loginfo("Waiting for result")
