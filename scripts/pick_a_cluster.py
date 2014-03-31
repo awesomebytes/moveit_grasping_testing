@@ -198,7 +198,7 @@ if __name__=='__main__':
 
     #publish_poses_grasps(possible_grasps)
     
-    goal = createPickupGoal("right_arm_torso_grasping", object_scene_name, object_pose, possible_grasps)
+    goal = createPickupGoal("right_arm_torso", object_scene_name, object_pose, possible_grasps)
     rospy.loginfo("Sending goal")
     pickup_ac.send_goal(goal)
     rospy.loginfo("Waiting for result")
