@@ -59,3 +59,20 @@ roslaunch reem_tabletop_grasping tabletop_grasping.launch
 ```
 roslaunch reem_moveit_config moveit_planning_execution.launch
 ```
+
+* Move REEM's head to look down:
+```
+rosrun reem_snippets move_reem_head.py
+```
+
+* You can test a dummy grasp with a virtual object executing:
+```
+rosrun moveit_grasping_testing pick_as_moveit.py
+```
+
+* Run tabletop table detection:
+```
+rosrun object_recognition_ros server -c `rospack find reem_object_recognition`/config/tabletop/detection.clusters.ros.ork.reem
+
+rosrun object_recognition_core detection -c `rospack find reem_object_recognition`/config/tabletop/detection.clusters.ros.ork.reem --graphviz
+```
