@@ -74,5 +74,5 @@ rosrun moveit_grasping_testing pick_as_moveit.py
 ```
 rosrun object_recognition_ros server -c `rospack find reem_object_recognition`/config/tabletop/detection.clusters.ros.ork.reem
 
-rosrun object_recognition_core detection -c `rospack find reem_object_recognition`/config/tabletop/detection.clusters.ros.ork.reem --graphviz
+rosrun object_recognition_core detection -c `rospack find reem_object_recognition`/config/tabletop/detection.clusters.ros.ork.reem
 ```
