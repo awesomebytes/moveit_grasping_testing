@@ -45,7 +45,7 @@ catkin_make
 ```
 roslaunch reem_gazebo reem_gazebo.launch world:=objects_on_table robot:=rgbd
 ```
-* You probably want to reduce the rate of publishing of the rgbd data:
+* You probably want to reduce the rate of publishing of the rgbd data once the simulation is running:
 ```
 roslaunch reem_rgbd_launch simulation_reduce_rate.launch
 ```
@@ -55,7 +55,7 @@ roslaunch reem_rgbd_launch simulation_reduce_rate.launch
 roslaunch reem_tabletop_grasping tabletop_grasping.launch
 ```
 
-* Run moveit for REEM
+* Run MoveIt! for REEM (this will open an Rviz window too):
 ```
 roslaunch reem_moveit_config moveit_planning_execution.launch
 ```
@@ -65,10 +65,15 @@ roslaunch reem_moveit_config moveit_planning_execution.launch
 rosrun reem_snippets move_reem_head.py
 ```
 
-* You can test a dummy grasp with a virtual object executing:
+* You can test a dummy pick and place of a virtual object executing:
 ```
-rosrun moveit_grasping_testing pick_as_moveit.py
+rosrun moveit_grasping_testing pick_and_place.py
 ```
+You will be able to see REEM in Rviz planning the motions pretty fast, but in Gazebo it will stop for some seconds every time it needs to open/close the hand (This is because of this unresolved issue: https://github.com/ros-planning/moveit_ros/pull/391 moveit_ros waits by default 7s).
+
+
+Also, for something a bit more dynamic:
+
 
 * Run tabletop table detection:
 ```

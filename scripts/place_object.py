@@ -59,7 +59,7 @@ def createPlaceLocations(posestamped):
         pl.pre_place_approach = createGripperTranslation(Vector3(0.0, 0.0, -1.0))
         pl.post_place_retreat = createGripperTranslation(Vector3(0.0, 0.0, 1.0))
     
-        pl.post_place_posture = getPreGraspPosture()    
+        pl.post_place_posture = getPreGraspPosture()
         place_locs.append(pl)
         
     return place_locs

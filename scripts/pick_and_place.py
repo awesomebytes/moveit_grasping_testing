@@ -57,7 +57,7 @@ if __name__=='__main__':
     # Table position
     p.pose.position.x = 0.6
     p.pose.position.y = 0.0    
-    p.pose.position.z = 0.65
+    p.pose.position.z = 0.55
     p.pose.orientation.w = 1.0
     
     scene.add_box("table", p, (0.5, 1.5, 0.9))
@@ -65,8 +65,8 @@ if __name__=='__main__':
     
     # Object position
     p.pose.position.x = 0.4
-    p.pose.position.y = -0.3
-    p.pose.position.z = 1.15
+    p.pose.position.y = -0.4
+    p.pose.position.z = 1.10
     
     scene.add_box("part", p, (0.03, 0.03, 0.1))
     rospy.loginfo("Added 'part' to world.")
@@ -77,19 +77,23 @@ if __name__=='__main__':
     pose_grasp = copy.deepcopy(p)
     possible_grasps = retrieveGrasps(pose_grasp.pose)
     pickup_goal = createPickupGoal("right_arm_torso", "part", pose_grasp, possible_grasps)
-    rospy.loginfo("Sending pickup goal.")
+    rospy.loginfo("=== Sending pickup goal. ===")
     pickup_ac.send_goal(pickup_goal)
-    
+     
     rospy.loginfo("Waiting for result...")
     pickup_ac.wait_for_result()
     result = pickup_ac.get_result()
     rospy.loginfo("Pickup human readable error: " + str(moveit_error_dict[result.error_code.val]))
     
+    # Place position, orientations will be generated at creating the place goal
+    p.pose.position.x = 0.35
     p.pose.position.y = -0.1
+    p.pose.position.z = 1.15
     
-    rospy.loginfo("Creating place goal.")
+    
+    rospy.loginfo("\nCreating place goal.")
     place_goal = createPlaceGoal(p, "right_arm_torso", "part")
-    rospy.loginfo("Sending place goal")
+    rospy.loginfo("=== Sending place goal. ===")
     place_ac.send_goal(place_goal)
     rospy.loginfo("Waiting for result...")
      
