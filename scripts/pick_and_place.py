@@ -1,99 +1,101 @@
 #! /usr/bin/env python
-# -*- coding: utf-8 -*-
+
 """
-Created on Dec 5 10:31:00 2013
+Created on April 2 15:28:00 2014
 
 @author: Sam Pfeiffer
 """
 
-#from moveit_commander import MoveGroupCommander
-from moveit_commander import RobotCommander, PlanningSceneInterface  #, roscpp_initialize, roscpp_shutdown
 import rospy
-from geometry_msgs.msg import PoseStamped
-from trajectory_msgs.msg import JointTrajectoryPoint
-from moveit_msgs.msg import Grasp
+import actionlib
+import copy
+from moveit_commander import PlanningSceneInterface
 
-rospy.init_node("pick_test")
-scene = PlanningSceneInterface()
-robot = RobotCommander()   
+from geometry_msgs.msg import Pose, PoseStamped, PoseArray, Vector3Stamped, Vector3, Quaternion, Point
+from moveit_msgs.msg import MoveItErrorCodes
+from moveit_msgs.msg import PlaceAction, PickupAction
 
-rospy.sleep(1)   
+from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
-# clean the scene
-scene.remove_world_object("table")
-scene.remove_world_object("part")
+from pick_object import retrieveGrasps, createPickupGoal
+from place_object import createPlaceGoal
 
-# publish a demo scene
-p = PoseStamped()
-p.header.frame_id = robot.get_planning_frame()
-
-p.pose.position.x = 0.6
-p.pose.position.y = 0.0    
-p.pose.position.z = 0.45
-p.pose.orientation.w = 1.0
-#scene.add_box("table", p, (0.5, 1.5, 0.9))
-p.pose.position.x = 0.45
-p.pose.position.y = -0.2
-p.pose.position.z = 0.95
-scene.add_box("part", p, (0.04, 0.04, 0.1))
-   
-rospy.sleep(1)    
-       
-p = PoseStamped()    
-p.header.frame_id = "base_link" 
-p.header.stamp = rospy.Time.now() 
-# p.pose.position.x = 0.61654
-# p.pose.position.y = 0.00954
-# p.pose.position.z = 0.98733
-p.pose.position.x = 0.25
-p.pose.position.y = -0.2
-p.pose.position.z = 1.00
-p.pose.orientation.x = 0.028598
-p.pose.orientation.y = 0.70614
-p.pose.orientation.z = -0.016945  
-p.pose.orientation.w = 0.70729
-
-grasp = Grasp()
-grasp.id = "test"   
-grasp.grasp_pose = p
-
-grasp.pre_grasp_approach.direction.header.frame_id = "base_link"
-grasp.pre_grasp_approach.direction.header.stamp = rospy.Time.now()
-grasp.pre_grasp_approach.direction.vector.x = 1.0
-grasp.pre_grasp_approach.direction.vector.y = 0.0
-grasp.pre_grasp_approach.direction.vector.z = 0.0
-grasp.pre_grasp_approach.desired_distance = 0.05
-grasp.pre_grasp_approach.min_distance = 0.01
-
-grasp.pre_grasp_posture.header.frame_id = "base_link" # what link do i need here?
-grasp.pre_grasp_posture.header.stamp = rospy.Time.now() 
-grasp.pre_grasp_posture.joint_names = ["hand_right_thumb_joint", "hand_right_index_joint", "hand_right_middle_joint"]
-pos = JointTrajectoryPoint() # pre-grasp with thumb down and fingers open
-pos.positions.append(2.0)
-pos.positions.append(0.0)
-pos.positions.append(0.0)
-grasp.pre_grasp_posture.points.append(pos)
+moveit_error_dict = {}
+for name in MoveItErrorCodes.__dict__.keys():
+    if not name[:1] == '_':
+        code = MoveItErrorCodes.__dict__[name]
+        moveit_error_dict[code] = name
 
 
-grasp.grasp_posture.header.frame_id = "base_link"
-grasp.grasp_posture.header.stamp = rospy.Time.now() 
-grasp.grasp_posture.joint_names = ["hand_right_thumb_joint", "hand_right_index_joint", "hand_right_middle_joint"]
-pos = JointTrajectoryPoint() # grasp with all closed
-pos.positions.append(2.0)
-pos.positions.append(2.0)
-pos.positions.append(2.0)
-grasp.grasp_posture.points.append(pos)
-
-grasp.post_grasp_retreat.direction.header.frame_id = "base_link"
-grasp.post_grasp_retreat.direction.header.stamp = rospy.Time.now()
-grasp.post_grasp_retreat.direction.vector.x = 0.0
-grasp.post_grasp_retreat.direction.vector.y = 0.0
-grasp.post_grasp_retreat.desired_distance = 0.1
-grasp.post_grasp_retreat.min_distance = 0.01
-grasp.allowed_touch_objects = ["table"]
-
-grasp.max_contact_force = 0
-
-
-
-robot.right_arm_torso.pick("part")#, grasp)
+if __name__=='__main__':
+    rospy.init_node("pick_and_place")
+    
+    rospy.loginfo("Connecting to pickup AS")
+    pickup_ac = actionlib.SimpleActionClient('/pickup', PickupAction)
+    pickup_ac.wait_for_server()
+    rospy.loginfo("Succesfully connected.")
+    
+    
+    rospy.loginfo("Connecting to place AS")
+    place_ac = actionlib.SimpleActionClient('/place', PlaceAction)
+    place_ac.wait_for_server()
+    rospy.loginfo("Succesfully connected.")
+    
+    rospy.loginfo("Setting up planning scene interace.")
+    scene = PlanningSceneInterface()
+    rospy.sleep(1)   
+    
+    rospy.loginfo("Done, cleaning world objects from possible previous runs (table, part)")
+    scene.remove_world_object("table")
+    scene.remove_world_object("part")
+    
+    # publish a demo scene
+    p = PoseStamped()
+    p.header.frame_id = '/base_link'
+    p.header.stamp = rospy.Time.now()
+    
+    # Table position
+    p.pose.position.x = 0.6
+    p.pose.position.y = 0.0    
+    p.pose.position.z = 0.65
+    p.pose.orientation.w = 1.0
+    
+    scene.add_box("table", p, (0.5, 1.5, 0.9))
+    rospy.loginfo("Added 'table' to world.")
+    
+    # Object position
+    p.pose.position.x = 0.4
+    p.pose.position.y = -0.3
+    p.pose.position.z = 1.15
+    
+    scene.add_box("part", p, (0.03, 0.03, 0.1))
+    rospy.loginfo("Added 'part' to world.")
+    
+    rospy.sleep(1)
+    
+    rospy.loginfo("Creating pickup goal.")
+    pose_grasp = copy.deepcopy(p)
+    possible_grasps = retrieveGrasps(pose_grasp.pose)
+    pickup_goal = createPickupGoal("right_arm_torso", "part", pose_grasp, possible_grasps)
+    rospy.loginfo("Sending pickup goal.")
+    pickup_ac.send_goal(pickup_goal)
+    
+    rospy.loginfo("Waiting for result...")
+    pickup_ac.wait_for_result()
+    result = pickup_ac.get_result()
+    rospy.loginfo("Pickup human readable error: " + str(moveit_error_dict[result.error_code.val]))
+    
+    p.pose.position.y = -0.1
+    
+    rospy.loginfo("Creating place goal.")
+    place_goal = createPlaceGoal(p, "right_arm_torso", "part")
+    rospy.loginfo("Sending place goal")
+    place_ac.send_goal(place_goal)
+    rospy.loginfo("Waiting for result...")
+     
+    place_ac.wait_for_result()
+    result = place_ac.get_result()
+    
+    rospy.loginfo("Place human readable error: " + str(moveit_error_dict[result.error_code.val]))
+    
+    

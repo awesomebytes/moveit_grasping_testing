@@ -87,11 +87,14 @@ if __name__=='__main__':
     p.header.frame_id = '/base_link'
     p.header.stamp = rospy.Time.now()
     
+    # Table position
     p.pose.position.x = 0.6
     p.pose.position.y = 0.0    
     p.pose.position.z = 0.65
     p.pose.orientation.w = 1.0
     scene.add_box("table", p, (0.5, 1.5, 0.9))
+    
+    # Object position
     p.pose.position.x = 0.4
     p.pose.position.y = -0.3
     p.pose.position.z = 1.15
