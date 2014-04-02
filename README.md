@@ -69,7 +69,7 @@ rosrun reem_snippets move_reem_head.py
 ```
 rosrun moveit_grasping_testing pick_and_place.py
 ```
-You will be able to see REEM in Rviz planning the motions pretty fast, but in Gazebo it will stop for some seconds every time it needs to open/close the hand (This is because of this unresolved issue: https://github.com/ros-planning/moveit_ros/pull/391 moveit_ros waits by default 7s).
+You will be able to see REEM in Rviz planning the motions pretty fast, we have an overlay of manipulation from moveit_ros because of https://github.com/ros-planning/moveit_ros/pull/391 moveit_ros waits by default 7s.
 
 
 Also, for something a bit more dynamic:

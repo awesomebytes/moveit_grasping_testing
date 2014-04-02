@@ -87,7 +87,7 @@ if __name__=='__main__':
     
     # Place position, orientations will be generated at creating the place goal
     p.pose.position.x = 0.35
-    p.pose.position.y = -0.1
+    p.pose.position.y = -0.45
     p.pose.position.z = 1.15
     
     
