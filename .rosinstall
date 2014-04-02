@@ -3,7 +3,7 @@
 
 - git: {local-name: object_recognition_clusters, uri: 'https://github.com/pal-robotics/object_recognition_clusters'}
 - git: {local-name: reem_object_recognition, uri: 'https://github.com/pal-robotics/reem_object_recognition'}
-- git: {local-name: block_grasp_generator, uri: 'https://github.com/pal-robotics/block_grasp_generator', version: 'hydro-devel'}
+- git: {local-name: block_grasp_generator, uri: 'https://github.com/awesomebytes/block_grasp_generator', version: 'simulation-aware'}
 - git: {local-name: reem_tabletop_grasping, uri: 'https://github.com/pal-robotics/reem_tabletop_grasping'}
 - git: {local-name: reem_rgbd_launch, uri: 'https://github.com/awesomebytes/reem_rgbd_launch'}
 - git: {local-name: moveit_grasping_testing, uri: 'https://github.com/awesomebytes/moveit_grasping_testing'}
