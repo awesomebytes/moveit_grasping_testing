@@ -85,6 +85,10 @@ if __name__=='__main__':
     result = pickup_ac.get_result()
     rospy.loginfo("Pickup human readable error: " + str(moveit_error_dict[result.error_code.val]))
     
+    if moveit_error_dict[result.error_code.val] != "SUCCESS":
+        rospy.loginfo("Can't place as pickup operation failed, try again.")
+        exit(0)
+    
     # Place position, orientations will be generated at creating the place goal
     p.pose.position.x = 0.35
     p.pose.position.y = -0.45
