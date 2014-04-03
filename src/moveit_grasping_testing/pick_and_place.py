@@ -19,6 +19,9 @@ from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
 from pick_object import retrieveGrasps, createPickupGoal
 from place_object import createPlaceGoal
+# This does not work and I think it should work :/
+# from moveit_grasping_testing.pick_object import retrieveGrasps, createPickupGoal
+# from moveit_grasping_testing.place_object import createPlaceGoal
 
 moveit_error_dict = {}
 for name in MoveItErrorCodes.__dict__.keys():
