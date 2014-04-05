@@ -1,7 +1,7 @@
 # Clusterer and REEM specific configuration files for ORK
 - git: {local-name: object_recognition_clusters, uri: 'https://github.com/pal-robotics/object_recognition_clusters'}
 - git: {local-name: reem_object_recognition, uri: 'https://github.com/pal-robotics/reem_object_recognition'}
-- git: {local-name: reem_tabletop_grasping, uri: 'https://github.com/pal-robotics/reem_tabletop_grasping'}
+- git: {local-name: reem_tabletop_grasping, uri: 'https://github.com/pal-robotics/reem_tabletop_grasping', version: 'sam_cluster_picking'}
 
 # Using a custom branch checking if we are running in simulation to change how much the fingers close
 - git: {local-name: block_grasp_generator, uri: 'https://github.com/awesomebytes/block_grasp_generator', version: 'simulation-aware'}
@@ -15,3 +15,6 @@
 
 # Until pull request is (hopefully) merged, this fixes a 7s hardcoded wait currently present in the manipulation pipeline
 - git: {local-name: moveit_ros, uri: 'https://github.com/awesomebytes/moveit_ros', version: 'fix_default_gripper_manipulation_time'}
+
+# Object recognition core patch to be able to run it from launchfile
+- git: {local-name: object_recognition_core, uri: 'https://github.com/awesomebytes/object_recognition_core'}
