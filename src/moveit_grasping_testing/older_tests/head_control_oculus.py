@@ -6,10 +6,10 @@ Created on Dec 10 11:54:00 2013
 @author: Sam Pfeiffer
 """
 
-from geometry_msgs.msg import PoseStamped, Point, Quaternion, Pose
+from geometry_msgs.msg import PoseStamped, Point, Quaternion, Pose, PointStamped, Vector3
 import rospy
 import actionlib
-from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryGoal
+from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryGoal, PointHeadAction, PointHeadActionGoal
 from tf.transformations import euler_from_quaternion
 from trajectory_msgs.msg import JointTrajectoryPoint
 from sensor_msgs.msg import JointState
@@ -18,24 +18,35 @@ from std_msgs.msg import Header
 
 
 HEAD_AS = '/head_controller/follow_joint_trajectory'
+POINT_HEAD_AS = '/head_controller/point_head_action'
 
 class controlHeadOculus():
 
     def __init__(self):
         rospy.Subscriber('/oculus_pose', PoseStamped, self.oculus_pose_callback)
         self.last_oculus_msg = None
-        rospy.loginfo("Connecting with head AS")
-        self.head_as = actionlib.SimpleActionClient(HEAD_AS, FollowJointTrajectoryAction)
-        self.head_as.wait_for_server()
-        rospy.loginfo("Connected!")
+        self.current_oculus_msg = None
+#         rospy.loginfo("Connecting with head AS")
+#         self.head_as = actionlib.SimpleActionClient(HEAD_AS, FollowJointTrajectoryAction)
+#         self.head_as.wait_for_server()
+#         rospy.loginfo("Connected!")
+        rospy.loginfo("Connecting with point head AS")
+        self.head_point_as = actionlib.SimpleActionClient(POINT_HEAD_AS, PointHeadAction)
+        self.head_point_as.wait_for_server()
+        rospy.loginfo("Connected!")        
+        
+        
         rospy.loginfo("Waiting for oculus pose...")
         while self.last_oculus_msg == None:
             rospy.sleep(0.1)
         rospy.loginfo("Done! Starting head controlling.")
-        self.sendCommandsHead()
+        #self.sendCommandsHead()
+        self.sendCommandsPointHead()
         
     def oculus_pose_callback(self, data):
-        self.last_oculus_msg = data
+        self.last_oculus_msg = self.current_oculus_msg
+        self.current_oculus_msg = data
+
         
     def createHeadGoal(self):
         (roll, pitch, yaw) = euler_from_quaternion([self.last_oculus_msg.pose.orientation.x,
@@ -56,17 +67,35 @@ class controlHeadOculus():
         jtp.velocities.append(0.0)
         rospy.loginfo("Sending: " + str(jtp.positions))
         #jtp.time_from_start.secs = 1
-        jtp.time_from_start.nsecs = 400
+        jtp.time_from_start.nsecs = 100
         head_goal.trajectory.points.append(jtp)
-        head_goal.trajectory.header.stamp = rospy.Time.now() + rospy.Duration(0.3)
+        head_goal.trajectory.header.stamp = rospy.Time.now() + rospy.Duration(0.1)
         return head_goal
         
+        
+    def createPointHeadActionGoal(self):
+        """ Just push a point 1 meter in front of the oculus frame, point head action
+        should do the rest"""
+        pha = PointHeadActionGoal()
+        pha.goal.pointing_frame = 'stereo_link'
+        pha.goal.pointing_axis = Vector3(0, 0, 1)
+        pha.goal.min_duration = rospy.Duration(1.0)
+        ps = PointStamped()
+        ps.header.frame_id = '/oculus'
+        ps.point = Point(1.0, 0.0, 0.0)
+        pha.goal.target = ps
+    
+    def sendCommandsPointHead(self):
+        while True:
+            head_point_goal = self.createPointHeadActionGoal()
+            self.head_point_as.send_goal(head_point_goal)
+            self.head_point_as.wait_for_result(rospy.Duration(0.0))
         
     def sendCommandsHead(self):
         while True:
             head_goal = self.createHeadGoal()
             self.head_as.send_goal(head_goal)
-            self.head_as.wait_for_result(rospy.Duration(0.2))
+            self.head_as.wait_for_result(rospy.Duration(0.0))
             #rospy.sleep(0.2)
 
 if __name__ == '__main__':
