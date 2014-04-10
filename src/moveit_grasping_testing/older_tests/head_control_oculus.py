@@ -79,12 +79,14 @@ class controlHeadOculus():
         pha = PointHeadActionGoal()
         pha.goal = PointHeadGoal()
         pha.goal.pointing_frame = 'stereo_link'
-        pha.goal.pointing_axis = Vector3(0, 0, 1)
+        pha.goal.pointing_axis = Vector3(0.0, 0.0, 1.0)
         pha.goal.min_duration = rospy.Duration(1.0)
         ps = PointStamped()
         ps.header.frame_id = 'oculus'
         ps.point = Point(1.0, 0.0, 0.0)
         pha.goal.target = ps
+        print "Going to send:"
+        print pha
         return pha
     
     def sendCommandsPointHead(self):
