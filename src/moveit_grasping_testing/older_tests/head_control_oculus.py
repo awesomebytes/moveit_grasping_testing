@@ -74,18 +74,13 @@ class controlHeadOculus():
         
         
     def createPointHeadActionGoal(self):
-        """ Just push a point 1 meter in front of the oculus frame, point head action
-        should do the rest"""
-        pha = PointHeadActionGoal()
-        pha.goal = PointHeadGoal()
-        pha.goal.pointing_frame = 'stereo_link'
-        pha.goal.pointing_axis = Vector3(0.0, 0.0, 1.0)
-        pha.goal.min_duration = rospy.Duration(1.0)
-        pha.goal.target.header = Header(frame_id='oculus', time_stamp=rospy.Time.now())
-        pha.goal.target.point = Point(1.0, 0.0, 0.0)
-        print "Going to send:"
-        print pha
-        return pha
+        phag = PointHeadGoal()
+        phag.pointing_frame = 'stereo_link'
+        phag.pointing_axis = Vector3(1.0, 0.0, 0.0)
+        phag.min_duration = rospy.Duration(1.0)
+        phag.target.header = Header(frame_id='oculus', stamp=rospy.Time.now())
+        phag.target.point = Point(1.0, 0.0, 0.0)
+        return phag
     
     def sendCommandsPointHead(self):
         while True:
