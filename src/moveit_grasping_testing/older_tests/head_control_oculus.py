@@ -9,7 +9,7 @@ Created on Dec 10 11:54:00 2013
 from geometry_msgs.msg import PoseStamped, Point, Quaternion, Pose, PointStamped, Vector3
 import rospy
 import actionlib
-from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryGoal, PointHeadAction, PointHeadActionGoal
+from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryGoal, PointHeadAction, PointHeadActionGoal, PointHeadGoal
 from tf.transformations import euler_from_quaternion
 from trajectory_msgs.msg import JointTrajectoryPoint
 from sensor_msgs.msg import JointState
@@ -77,13 +77,15 @@ class controlHeadOculus():
         """ Just push a point 1 meter in front of the oculus frame, point head action
         should do the rest"""
         pha = PointHeadActionGoal()
+        pha.goal = PointHeadGoal()
         pha.goal.pointing_frame = 'stereo_link'
         pha.goal.pointing_axis = Vector3(0, 0, 1)
         pha.goal.min_duration = rospy.Duration(1.0)
         ps = PointStamped()
-        ps.header.frame_id = '/oculus'
+        ps.header.frame_id = 'oculus'
         ps.point = Point(1.0, 0.0, 0.0)
         pha.goal.target = ps
+        return pha
     
     def sendCommandsPointHead(self):
         while True:
