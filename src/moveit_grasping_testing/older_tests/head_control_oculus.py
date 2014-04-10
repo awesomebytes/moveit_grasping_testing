@@ -13,6 +13,7 @@ from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryG
 from tf.transformations import euler_from_quaternion
 from trajectory_msgs.msg import JointTrajectoryPoint
 from sensor_msgs.msg import JointState
+from std_msgs.msg import Header
 
 
 
@@ -55,8 +56,9 @@ class controlHeadOculus():
         jtp.velocities.append(0.0)
         rospy.loginfo("Sending: " + str(jtp.positions))
         #jtp.time_from_start.secs = 1
-        jtp.time_from_start.nsecs = 300
+        jtp.time_from_start.nsecs = 400
         head_goal.trajectory.points.append(jtp)
+        head_goal.trajectory.header.stamp = rospy.Time.now() + rospy.Duration(0.3)
         return head_goal
         
         
@@ -64,8 +66,8 @@ class controlHeadOculus():
         while True:
             head_goal = self.createHeadGoal()
             self.head_as.send_goal(head_goal)
-            self.head_as.wait_for_result()
-            rospy.sleep(0.2)
+            self.head_as.wait_for_result(rospy.Duration(0.2))
+            #rospy.sleep(0.2)
 
 if __name__ == '__main__':
     rospy.init_node('oculus_move_head')
