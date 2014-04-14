@@ -19,6 +19,7 @@ from std_msgs.msg import Header
 
 HEAD_AS = '/head_controller/follow_joint_trajectory'
 POINT_HEAD_AS = '/head_controller/point_head_action'
+HEAD_STATE_TOPIC = '/head_controller/state'
 
 class controlHeadOculus():
 
@@ -26,22 +27,31 @@ class controlHeadOculus():
         rospy.Subscriber('/oculus_pose', PoseStamped, self.oculus_pose_callback)
         self.last_oculus_msg = None
         self.current_oculus_msg = None
-#         rospy.loginfo("Connecting with head AS")
-#         self.head_as = actionlib.SimpleActionClient(HEAD_AS, FollowJointTrajectoryAction)
-#         self.head_as.wait_for_server()
-#         rospy.loginfo("Connected!")
-        rospy.loginfo("Connecting with point head AS")
-        self.head_point_as = actionlib.SimpleActionClient(POINT_HEAD_AS, PointHeadAction)
-        self.head_point_as.wait_for_server()
-        rospy.loginfo("Connected!")        
-        
+        rospy.loginfo("Connecting with head AS")
+        self.head_as = actionlib.SimpleActionClient(HEAD_AS, FollowJointTrajectoryAction)
+        self.head_as.wait_for_server()
+        rospy.loginfo("Connected!")
+        self.head_state_subs = rospy.Subscriber(HEAD_STATE_TOPIC, self.head_state_callback)
+        self.last_head_state = None
+        rospy.loginfo("Waiting for head state...")
+        while self.last_head_state == None:
+            rospy.sleep(0.1)
+        rospy.loginfo("Done!")
+
+#         rospy.loginfo("Connecting with point head AS")
+#         self.head_point_as = actionlib.SimpleActionClient(POINT_HEAD_AS, PointHeadAction)
+#         self.head_point_as.wait_for_server()
+#         rospy.loginfo("Connected!")        
         
         rospy.loginfo("Waiting for oculus pose...")
         while self.last_oculus_msg == None:
             rospy.sleep(0.1)
         rospy.loginfo("Done! Starting head controlling.")
-        #self.sendCommandsHead()
-        self.sendCommandsPointHead()
+        self.sendCommandsHead()
+        #self.sendCommandsPointHead()
+    
+    def head_state_callback(self, data):
+        self.last_head_state = data
         
     def oculus_pose_callback(self, data):
         self.last_oculus_msg = self.current_oculus_msg
@@ -58,7 +68,16 @@ class controlHeadOculus():
         head_goal = FollowJointTrajectoryGoal()
         head_goal.trajectory.joint_names.append('head_1_joint') # 1 positivo izquierda, -1 derecha
         head_goal.trajectory.joint_names.append('head_2_joint') # -1 arriba, 1 abajo
-        jtp = JointTrajectoryPoint()        
+        # Current position trajectory point
+        jtp_current = JointTrajectoryPoint()
+        jtp_current.positions.append(self.last_head_state.actual.positions[0])
+        jtp_current.positions.append(self.last_head_state.actual.positions[1])
+        jtp_current.velocities.append(self.last_head_state.actual.velocities[0])
+        jtp_current.velocities.append(self.last_head_state.actual.velocities[1])
+        jtp_current.time_from_start = rospy.Duration(0.0)
+        
+        # Next goal position
+        jtp = JointTrajectoryPoint()
         jtp.positions.append(yaw *-1)
         jtp.positions.append(pitch *-1)
 #         jtp.positions.append((yaw *-1) + 1.5707963267948966) # + 180 deg
@@ -68,6 +87,7 @@ class controlHeadOculus():
         rospy.loginfo("Sending: " + str(jtp.positions))
         #jtp.time_from_start.secs = 1
         jtp.time_from_start.nsecs = 100
+        head_goal.trajectory.points.append(jtp_current)
         head_goal.trajectory.points.append(jtp)
         head_goal.trajectory.header.stamp = rospy.Time.now() + rospy.Duration(0.1)
         return head_goal
@@ -85,6 +105,7 @@ class controlHeadOculus():
     def sendCommandsPointHead(self):
         while True:
             head_point_goal = self.createPointHeadActionGoal()
+            self.head_point_as.cancel_all_goals()
             self.head_point_as.send_goal(head_point_goal)
             self.head_point_as.wait_for_result(rospy.Duration(0.0))
         
