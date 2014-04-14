@@ -97,7 +97,7 @@ class controlHeadOculus():
         phag = PointHeadGoal()
         phag.pointing_frame = 'stereo_link'
         phag.pointing_axis = Vector3(1.0, 0.0, 0.0)
-        phag.min_duration = rospy.Duration(1.0)
+        phag.min_duration = rospy.Duration(0.5)
         phag.target.header = Header(frame_id='oculus', stamp=rospy.Time.now())
         phag.target.point = Point(1.0, 0.0, 0.0)
         return phag
