@@ -55,9 +55,9 @@ roslaunch reem_rgbd_launch simulation_reduce_rate.launch
 roslaunch reem_tabletop_grasping tabletop_grasping.launch
 ```
 
-* Run MoveIt! for REEM (this will open an Rviz window too):
+* Run MoveIt! Rviz GUI for REEM (with last version of REEM public simulation MoveIt! is started by default):
 ```
-roslaunch reem_moveit_config moveit_planning_execution.launch
+roslaunch reem_moveit_config moveit_rviz.launch config:=true
 ```
 
 * Move REEM's head to look down:
@@ -73,6 +73,7 @@ You will be able to see REEM in Rviz planning the motions pretty fast, we have a
 
 
 Also, for something a bit more dynamic:
+Work has been done in this area, so maybe something acts funny, you are warned!
 
 
 * Run tabletop table detection:
