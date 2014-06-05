@@ -60,11 +60,15 @@ if __name__ == '__main__':
     print 'connection accepted from', listener.last_accepted
     
     conn.send([2.25, None, 'junk', float])
-    conn.close()
-    listener.close()
+#     conn.close()
+#     listener.close()
     # END TEST CONNECTION, THIS ALWAYS WORKS
     thisnode = rospy.init_node('listen_to_right_arm_goal', anonymous=True)
-    t = topicListener()
+    rospy.sleep(5)
+    conn.send([2.25, None, 'junk', float])
+    conn.close()
+    listener.close()
+    #t = topicListener()
     
 
 

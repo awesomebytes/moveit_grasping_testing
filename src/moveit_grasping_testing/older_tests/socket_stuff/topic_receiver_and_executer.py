@@ -61,8 +61,15 @@ if __name__ == '__main__':
     conn = Client(address, authkey='secret password')
     
     print conn.recv()                 # => [2.25, None, 'junk', float]
+
     conn.close()
     # END TEST CONNECTION, THIS ALWAYS WORKS
     rospy.init_node('receive_right_arm_goal_and_send', anonymous=True)
-    t = topicReceiver()
+    rospy.sleep(5)
+    conn = Client(address, authkey='secret password')
+    
+    print conn.recv()                 # => [2.25, None, 'junk', float]
+
+    conn.close()
+    #t = topicReceiver()
     

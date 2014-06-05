@@ -9,7 +9,8 @@ Created on 30/04/14
 
 import rospy
 from std_msgs.msg import Header
-
+from pal_interaction_msgs.msg import ASREvent
+ASREvent.EVENT_LISTEN_STATE
 
 def stress_topic_cb(data):
     rospy.sleep(0.1)

@@ -116,7 +116,7 @@ if __name__=='__main__':
     p.pose.position.z = 1.15
     
     
-    goal = createPlaceGoal(p, "right_arm_torso", "part")
+    goal = createPlaceGoal(p, "right_arm_torso", "object_to_grasp")
     rospy.loginfo("Sending goal")
     place_ac.send_goal(goal)
     rospy.loginfo("Waiting for result")
