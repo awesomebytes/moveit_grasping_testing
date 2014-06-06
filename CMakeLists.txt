@@ -9,7 +9,6 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   trajectory_msgs
   tf
-  block_grasp_generator
 )
 
 

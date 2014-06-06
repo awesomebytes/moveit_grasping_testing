@@ -43,6 +43,7 @@ import copy
 import rospy
 import moveit_commander
 import moveit_msgs.msg
+from moveit_msgs.srv import ExecuteKnownTrajectory, ExecuteKnownTrajectoryRequest, ExecuteKnownTrajectoryResponse
 import geometry_msgs.msg
 ## END_SUB_TUTORIAL
 
@@ -74,6 +75,7 @@ def move_group_python_interface_tutorial():
     ## arm.  This interface can be used to plan and execute motions on the left
     ## arm.
     group = moveit_commander.MoveGroupCommander("right_arm")
+    #group.set_planner_id("PRMkConfigDefault")
     
     
     ## We create this DisplayTrajectory publisher which is used below to publish
@@ -82,10 +84,6 @@ def move_group_python_interface_tutorial():
                                         '/move_group/display_planned_path',
                                         moveit_msgs.msg.DisplayTrajectory)
     
-    ## Wait for RVIZ to initialize. This sleep is ONLY to allow Rviz to come up.
-    print "============ Waiting for RVIZ..."
-    rospy.sleep(10)
-    print "============ Starting tutorial "
     
     ## Getting Basic Information
     ## ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,77 +109,55 @@ def move_group_python_interface_tutorial():
     ## ^^^^^^^^^^^^^^^^^^^^^^^
     ## We can plan a motion for this group to a desired pose for the 
     ## end-effector
-    print "============ Generating plan 1"
+    print "============ Generating plan to initial pose"
     pose_target = geometry_msgs.msg.Pose()
     pose_target.orientation.w = 1.0
     pose_target.position.x = 0.3
     pose_target.position.y = -0.3
     pose_target.position.z = 1.1
     group.set_pose_target(pose_target)
-    
-    ## Now, we call the planner to compute the plan
-    ## and visualize it if successful
-    ## Note that we are just planning, not asking move_group 
-    ## to actually move the robot
     plan1 = group.plan()
     
-    print "============ Waiting while RVIZ displays plan1..."
-    rospy.sleep(3)
-    
-    
-    ## You can ask RVIZ to visualize a plan (aka trajectory) for you.  But the
-    ## group.plan() method does this automatically so this is not that useful
-    ## here (it just displays the same trajectory again).
-    print "============ Visualizing plan1"
-    display_trajectory = moveit_msgs.msg.DisplayTrajectory()
-    
-    display_trajectory.trajectory_start = robot.get_current_state()
-    display_trajectory.trajectory.append(plan1)
-    display_trajectory_publisher.publish(display_trajectory);
-    
-    print "============ Waiting while plan1 is visualized (again)..."
-    rospy.sleep(3)
-    
-    
-    ## Moving to a pose goal
-    ## ^^^^^^^^^^^^^^^^^^^^^
-    ##
-    ## Moving to a pose goal is similar to the step above
-    ## except we now use the go() function. Note that
-    ## the pose goal we had set earlier is still active 
-    ## and so the robot will try to move to that goal. We will
-    ## not use that function in this tutorial since it is 
-    ## a blocking function and requires a controller to be active
-    ## and report success on execution of a trajectory.
     
     # Uncomment below line when working with a real robot
-    print "Moving arm to hardcoded 3d pose"
+    print "Moving arm to initial 3d pose: " + str(pose_target)
     group.go(wait=True)
+    rospy.sleep(1)
+    group.clear_pose_targets()
+        
+    print "============ Generating plan to final pose"
+    pose_target = geometry_msgs.msg.Pose()
+    pose_target.orientation.w = 1.0
+    pose_target.position.x = 0.3
+    pose_target.position.y = -0.3
+    pose_target.position.z = 1.4
+    group.set_pose_target(pose_target)
+    plan1 = group.plan()
     
-    ## Planning to a joint-space goal 
-    ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ##
-    ## Let's set a joint space goal and move towards it. 
-    ## First, we will clear the pose target we had just set.
     
+    # Uncomment below line when working with a real robot
+    print "Moving arm to final pose: " + str(pose_target)
+    group.go(wait=True)
+    rospy.sleep(1)
     group.clear_pose_targets()
     
-    ## Then, we will get the current set of joint values for the group
-    group_variable_values = group.get_current_joint_values()
-    print "============ Joint values: ", group_variable_values
+    print "If everything worked well here, then we should be able to do a straight path"
     
-    ## Now, let's modify one of the joints, plan to the new joint
-    ## space goal and visualize the plan
-    group_variable_values[0] = 1.0
-    group.set_joint_value_target(group_variable_values)
     
-    plan2 = group.plan()
-    
-    print "============ Waiting while RVIZ displays plan2..."
-    rospy.sleep(3)
-    
-    print "Moving arm to current pose but moving first joint to 1.0"
+    print "============ Generating plan to initial pose"
+    pose_target = geometry_msgs.msg.Pose()
+    pose_target.orientation.w = 1.0
+    pose_target.position.x = 0.3
+    pose_target.position.y = -0.3
+    pose_target.position.z = 1.1
+    group.set_pose_target(pose_target)
+    plan1 = group.plan()
+
+    # Uncomment below line when working with a real robot
+    print "Moving arm to initial 3d pose: " + str(pose_target)
     group.go(wait=True)
+    rospy.sleep(1)
+    group.clear_pose_targets()
     
     ## Cartesian Paths
     ## ^^^^^^^^^^^^^^^
@@ -190,26 +166,20 @@ def move_group_python_interface_tutorial():
     waypoints = []
     
     # start with the current pose
+    rospy.sleep(1)
     waypoints.append(group.get_current_pose().pose)
     
     # first orient gripper and move forward (+x)
     wpose = geometry_msgs.msg.Pose()
     wpose.orientation.w = 1.0
-    wpose.position.x = waypoints[0].position.x + 0.1
+    wpose.position.x = waypoints[0].position.x
     wpose.position.y = waypoints[0].position.y
-    wpose.position.z = waypoints[0].position.z
+    wpose.position.z = waypoints[0].position.z + 0.15
     waypoints.append(copy.deepcopy(wpose))
     
-    # second move down
-    wpose.position.z -= 0.10
-    waypoints.append(copy.deepcopy(wpose))
-    
-    # third move to the side
-    wpose.position.y -= 0.05
-    waypoints.append(copy.deepcopy(wpose))
     
     # fourth move to the side a lot
-    wpose.position.y -= 0.15
+    wpose.position.z += 0.15
     waypoints.append(copy.deepcopy(wpose))
     
     ## We want the cartesian path to be interpolated at a resolution of 1 cm
@@ -218,7 +188,7 @@ def move_group_python_interface_tutorial():
     ## disabling it.
     (plan3, fraction) = group.compute_cartesian_path(
                                  waypoints,   # waypoints to follow
-                                 0.01,        # eef_step
+                                 0.02,        # eef_step
                                  0.0)         # jump_threshold
                                  
     print "============ Waiting while RVIZ displays plan3..."
@@ -229,6 +199,20 @@ def move_group_python_interface_tutorial():
     
     print "Moving arm to cartesian path thing"
     group.go(wait=True)
+    
+    
+    print "this did for sure not work, so lets try with executeknowntrajectory thing"
+    ekp = rospy.ServiceProxy('/execute_kinematic_path', ExecuteKnownTrajectory)
+    ekp.wait_for_service()
+    
+    print "!!!! Gonna send goal to execute_kinematic_path"
+    rospy.sleep(4)
+    ektr = ExecuteKnownTrajectoryRequest()
+    ektr.trajectory = plan3
+    ektr.wait_for_execution = True
+    ekp.call(ektr)
+    print "!!!! Call done"
+    
     
     ## Adding/Removing Objects and Attaching/Detaching Objects
     ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
