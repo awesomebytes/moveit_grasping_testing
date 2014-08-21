@@ -16,7 +16,7 @@ from trajectory_msgs.msg import JointTrajectoryPoint, JointTrajectory
 from moveit_msgs.msg import Grasp, PickupAction, PickupGoal, PickupResult, GripperTranslation, MoveItErrorCodes
 import copy
 import random
-from block_grasp_generator.msg import GenerateBlockGraspsAction, GenerateBlockGraspsGoal, GenerateBlockGraspsResult
+from moveit_simple_grasps.msg import GenerateGraspsAction, GenerateGraspsGoal, GenerateGraspsResult
 from tf import transformations
 from math import radians, pi, sqrt
 from tf.transformations import quaternion_from_euler, euler_from_quaternion

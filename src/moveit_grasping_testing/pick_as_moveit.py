@@ -16,7 +16,7 @@ from trajectory_msgs.msg import JointTrajectoryPoint, JointTrajectory
 from moveit_msgs.msg import Grasp, PickupAction, PickupGoal, PickupResult, GripperTranslation, MoveItErrorCodes
 import copy
 import random
-from block_grasp_generator.msg import GenerateBlockGraspsAction, GenerateBlockGraspsGoal, GenerateBlockGraspsResult
+from moveit_simple_grasps.msg import GenerateGraspsAction, GenerateGraspsGoal, GenerateGraspsResult
 from tf import transformations
 from math import radians, pi
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
@@ -184,10 +184,10 @@ def createPickupGoal(group="right_arm_torso", target="part", grasp_pose=PoseStam
 
 def retrieveGrasps(pose, width=0.04):
     rospy.loginfo("Connecting to grasp generator AS")
-    grasps_ac = actionlib.SimpleActionClient('/grasp_generator_server/generate', GenerateBlockGraspsAction)
+    grasps_ac = actionlib.SimpleActionClient('/grasp_generator_server/generate', GenerateGraspsAction)
     grasps_ac.wait_for_server()
     rospy.loginfo("Succesfully connected.")
-    goal = GenerateBlockGraspsGoal()
+    goal = GenerateGraspsGoal()
     goal.pose = pose
     goal.width = width
     grasps_ac.send_goal(goal)
