@@ -1,0 +1,106 @@
+grasp: 
+  id: 309
+  pre_grasp_posture: 
+    header: 
+      seq: 0
+      stamp: 
+        secs: 0
+        nsecs: 0
+      frame_id: gripper_grasping_frame
+    joint_names: ['gripper_left_finger_joint', 'gripper_right_finger_joint']
+    points: 
+      - 
+        positions: [0.05, 0.05]
+        velocities: []
+        accelerations: []
+        effort: []
+        time_from_start: 
+          secs: 2
+          nsecs: 0
+  grasp_posture: 
+    header: 
+      seq: 0
+      stamp: 
+        secs: 0
+        nsecs: 0
+      frame_id: gripper_grasping_frame
+    joint_names: ['gripper_left_finger_joint', 'gripper_right_finger_joint']
+    points: 
+      - 
+        positions: [0.05, 0.05]
+        velocities: []
+        accelerations: []
+        effort: []
+        time_from_start: 
+          secs: 2
+          nsecs: 0
+      - 
+        positions: [0.01, 0.01]
+        velocities: []
+        accelerations: []
+        effort: []
+        time_from_start: 
+          secs: 4
+          nsecs: 0
+  grasp_pose: 
+    header: 
+      seq: 0
+      stamp: 
+        secs: 0
+        nsecs: 0
+      frame_id: base_link
+    pose: 
+      position: 
+        x: 0.593933982822
+        y: 0.2
+        z: 1.30606601718
+      orientation: 
+        x: -0.653281482438
+        y: -0.270598050073
+        z: 0.270598050073
+        w: -0.653281482438
+  grasp_quality: 0.1
+  pre_grasp_approach: 
+    direction: 
+      header: 
+        seq: 0
+        stamp: 
+          secs: 0
+          nsecs: 0
+        frame_id: gripper_grasping_frame
+      vector: 
+        x: -1.0
+        y: 0.0
+        z: 0.0
+    desired_distance: 0.15000000596
+    min_distance: 0.0
+  post_grasp_retreat: 
+    direction: 
+      header: 
+        seq: 0
+        stamp: 
+          secs: 0
+          nsecs: 0
+        frame_id: gripper_grasping_frame
+      vector: 
+        x: 1.0
+        y: 0.0
+        z: 0.0
+    desired_distance: 0.15000000596
+    min_distance: 0.0
+  post_place_retreat: 
+    direction: 
+      header: 
+        seq: 0
+        stamp: 
+          secs: 0
+          nsecs: 0
+        frame_id: ''
+      vector: 
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    desired_distance: 0.0
+    min_distance: 0.0
+  max_contact_force: 0.0
+  allowed_touch_objects: []
